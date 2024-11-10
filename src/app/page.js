@@ -16,27 +16,27 @@ export default function HomePage() {
     {
       nome: "Filial",
       imagem: "https://www.sindipublicos.com.br/wp-content/uploads/2022/02/drogasil-site.jpg", quantidade: filiais.length,
-      link: "/filial"
+      link: "/filiais"
     },
     {
       nome: "Produtos",
       imagem: "https://ictq.com.br/images/Redes_de_farm%C3%A1cias_registram_retra%C3%A7%C3%A3o_de_22_em_abril.jpg", quantidade: produtos.length,
-      link: "/produto"
+      link: "/produtos"
     },
     {
       nome: "Funcionários",
       imagem: "https://cptstatic.s3.amazonaws.com/imagens/enviadas/materias/materia13814/funcao-social-farmacias-farmaceuticos-dicas-cursos-cpt.jpg", quantidade: funcionarios.length,
-      link: "/funcionario"
+      link: "/funcionarios"
     },
     {
       nome: "Entregadores",
       imagem: "https://www.designi.com.br/images/preview/10102082.jpg", quantidade: entregadores.length,
-      link: "/entregador"
+      link: "/entregadores"
     },
     {
       nome: "Clientes",
       imagem: "https://www.triersistemas.com.br/blog/wp-content/uploads/2020/08/passos-para-fidelizar-cliente-triersistemas.jpg", quantidade: clientes.length,
-      link: "/cliente"
+      link: "/clientes"
     },
   ]
 

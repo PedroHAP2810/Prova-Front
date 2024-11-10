@@ -74,20 +74,26 @@ export default function FilialFormPage(props) {
     pais: 'Brasil',
     estado: '',
     cidade: '',
-    endereco: ''
+    endereco: '',
+    gerente: '',
+    telefone: '',
+    horario: '',
   }
 
   // Esquema de validação com Yup
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatório"),
     pais: Yup.string().required("Campo obrigatório"),
-    estado: Yup.string(),
-    cidade: Yup.string(),
-    endereco: Yup.string().required("Campo obrigatório")
+    estado: Yup.string().required("Campo obrigatório"),
+    cidade: Yup.string().required("Campo obrigatório"),
+    endereco: Yup.string().required("Campo obrigatório"),
+    gerente: Yup.string().required("Campo obrigatório"),
+    telefone: Yup.string().required("Campo obrigatório"),
+    horario: Yup.string().required("Campo obrigatório"),
   })
 
   return (
-    <Pagina titulo={"Cadastro de Filial"}>
+    <Pagina titulo={"Cadastro de Filiais"}>
 
       {/* Formulário */}
 
@@ -138,9 +144,7 @@ export default function FilialFormPage(props) {
                     />
                     <Form.Control.Feedback type='invalid'>{errors.nome}</Form.Control.Feedback>
                   </Form.Group>
-                </Row>
-
-                <Row className='mb-2'>
+                
                   <Form.Group as={Col}>
                     <Form.Label>Endereco:</Form.Label>
                     <Form.Control
@@ -206,12 +210,14 @@ export default function FilialFormPage(props) {
                     </Form.Select>
                     <Form.Control.Feedback type='invalid'>{errors.cidade}</Form.Control.Feedback>
                   </Form.Group>
-
+                </Row>
                 
+                <Row className='mb-2'>
                   <Form.Group as={Col}>
                     <Form.Label>Gerente:</Form.Label>
                     <Form.Control
                       name='gerente'
+                      type='text'
                       value={values.gerente}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -222,8 +228,8 @@ export default function FilialFormPage(props) {
                     <Form.Control.Feedback type='invalid'>{errors.gerente}</Form.Control.Feedback>
                   </Form.Group>
 
-                <Form.Group as={Col} md={6}>
-                <Form.Label>Telefone:</Form.Label>
+                <Form.Group as={Col} md={3}>
+                <Form.Label>Telefone da Filial:</Form.Label>
                 <Form.Control
                   mask={"(99)99999-9999"}
                   placeholder='(99)99999-9999'
@@ -232,10 +238,10 @@ export default function FilialFormPage(props) {
                   value={values.telefone}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  isValid={touched?.filial?.telefone && !errors?.filial?.telefone}
-                  isInvalid={touched?.filial?.telefone && !!errors?.filial?.telefone}
+                  isValid={touched.telefone && !errors.telefone}
+                  isInvalid={touched.telefone && !!errors.telefone}
                 />
-                <Form.Control.Feedback type='invalid'>{errors?.filial?.telefone}</Form.Control.Feedback>  
+                <Form.Control.Feedback type='invalid'>{errors.telefone}</Form.Control.Feedback>  
               </Form.Group>
 
               <Form.Group as={Col} md={6}>

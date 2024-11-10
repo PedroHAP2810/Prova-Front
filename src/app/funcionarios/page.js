@@ -45,7 +45,7 @@ export default function FuncionariosPage() {
         <thead>
           <tr>
             <th>Nome</th>
-            <th>CPF</th>
+            <th>Filial</th>
             <th>Matricula</th>
             <th>Sexo</th>
             <th>Data de Nascimento</th>
@@ -59,7 +59,7 @@ export default function FuncionariosPage() {
             return (
               <tr>
                 <td>{funcionario.nome}</td>
-                <td>{funcionario.cpf}</td>
+                <td>{funcionario.filial}</td>
                 <td>{funcionario.matricula}</td>
                 <td>{funcionario.sexo}</td>
                 <td>{funcionario.dataNascimento}</td>
@@ -69,7 +69,7 @@ export default function FuncionariosPage() {
                 <td className='text-center'>
                   {/* Botões das ações */}
                   <Button className='me-2' href={`/funcionarios/form?id=${funcionario.id}`}><FaPen /></Button>
-                  <Button variant='danger' onClick={() => excluir(professor)}><FaTrash /></Button>
+                  <Button variant='danger' onClick={() => excluir(funcionario)}><FaTrash /></Button>
 
                 </td>
               </tr>

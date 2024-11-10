@@ -8,78 +8,77 @@ import { FaArrowLeft, FaCheck } from "react-icons/fa"
 import { v4 } from 'uuid'
 import * as Yup from 'yup'
 
-export default function FuncionarioFormPage(props) {
+export default function ClienteFormPage(props) {
 
   // router -> hook para navegação de telas
   const router = useRouter()
 
   const handleBackClick = () => {
-    router.push('/funcionarios'); // Navega para '/funcionarios'
+    router.push('/clientes');
   };
 
   // Busca a lista de cursos para usar no select
-  const cargos = JSON.parse(localStorage.getItem('cargos')) || []
+  const convenios = JSON.parse(localStorage.getItem('convenios')) || []
 
   // Buscar a lista de cursos no localStorage, se não existir, inicializa uma lista vazia
-  const funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || []
+  const clientes = JSON.parse(localStorage.getItem('clientes')) || []
 
   // Recuperando id para edição
   const id = props.searchParams.id
   console.log(props.searchParams.id)
   // Buscar na lista a faculdade com o ID recebido no parametro
-  const funcionarioEditado = funcionarios.find(item => item.id == id)
-  console.log(funcionarioEditado)
+  const clienteEditado = clientes.find(item => item.id == id)
+  console.log(clienteEditado)
 
 
   // função para salvar os dados do form
   function salvar(dados) {
     // Se professorEditado existe, mudar os dados e gravar no localStorage
-    if (funcionarioEditado) {
-      Object.assign(funcionarioEditado, dados)
+    if (clienteEditado) {
+      Object.assign(clienteEditado, dados)
       // Substitui a lista antiga pela nova no localStorage
-      localStorage.setItem('funcionarios', JSON.stringify(funcionarios))
+      localStorage.setItem('clientes', JSON.stringify(clientes))
     } else {
-      // se professorEditado não existe, é criação de uma nova
+      // se clienteEditado não existe, é criação de uma nova
       // gerar um ID (Identificador unico)
       dados.id = v4()
       // Adiciona a nova faculdade na lista de faculdades
-      funcionarios.push(dados)
+      clientes.push(dados)
       // Substitui a lista antiga pela nova no localStorage
-      localStorage.setItem('funcionarios', JSON.stringify(funcionarios))
+      localStorage.setItem('clientes', JSON.stringify(clientes))
     }
 
-    alert("Funcionario criado com sucesso!")
-    router.push("/funcionarios")
+    alert("Cliente criado com sucesso!")
+    router.push("/clientes")
   }
 
 
   // Campos do form e valores iniciais(default)
   const initialValues = {
     nome: '',
-    filial: '',
-    matricula: '',
+    cpf: '',
+    rg: '',
     sexo: '',
     dataNascimento: '',
-    situacao: '',
-    cargo: '',
+    endereco: '',
+    convenio: '',
     telefone: '',
-
   }
 
   // Esquema de validação com Yup
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatório"),
-    filial: Yup.string().required("Campo obrigatório"),
-    matricula: Yup.string().required("Campo obrigatório"),
+    cpf: Yup.string().required("Campo obrigatório"),
+    rg: Yup.string().required("Campo obrigatório"),
     sexo: Yup.string().required("Campo obrigatório"),
     dataNascimento: Yup.date().required("Campo obrigatório"),
-    situacao: Yup.string().required("Campo obrigatório"),
-    cargo: Yup.string().required("Campo obrigatório"),
+    endereco: Yup.string().required("Campo obrigatório"),
+    convenio: Yup.string().required("Campo obrigatório"),
     telefone: Yup.string().required("Campo obrigatório"),
   })
 
   return (
-    <Pagina titulo={"Cadastro de Funcionarios"}>
+    <Pagina titulo={"Cadastro de Clientes"}>
 
       {/* Formulário */}
 
@@ -87,7 +86,7 @@ export default function FuncionarioFormPage(props) {
         // Atributos do formik
         // Se for edição, coloca os dados de professorEditado
         // Se for nova, colocar o initialValues com os valores vazios
-        initialValues={funcionarioEditado || initialValues}
+        initialValues={clienteEditado || initialValues}
         validationSchema={validationSchema}
         onSubmit={salvar}
       >
@@ -122,17 +121,17 @@ export default function FuncionarioFormPage(props) {
                   </Form.Group>
 
                   <Form.Group as={Col}>
-                    <Form.Label>Filial:</Form.Label>
+                    <Form.Label>CPF:</Form.Label>
                     <Form.Control
-                      name='filial'
+                      name='cpf'
                       type='text'
-                      value={values.filial}
+                      value={values.cpf}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      isValid={touched.filial && !errors.filial}
-                      isInvalid={touched.filial && errors.filial}
+                      isValid={touched.cpf && !errors.cpf}
+                      isInvalid={touched.cpf && errors.cpf}
                     />
-                    <Form.Control.Feedback type='invalid'>{errors.filial}</Form.Control.Feedback>
+                    <Form.Control.Feedback type='invalid'>{errors.cpf}</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group as={Col}>
@@ -169,59 +168,57 @@ export default function FuncionarioFormPage(props) {
 
                 <Row className='mb-2'>
                   <Form.Group as={Col}>
-                    <Form.Label>Matricula:</Form.Label>
+                    <Form.Label>RG:</Form.Label>
                     <Form.Control
-                      name='matricula'
+                      name='rg'
                       type='text'
-                      value={values.matricula}
+                      value={values.rg}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      isValid={touched.matricula && !errors.matricula}
-                      isInvalid={touched.matricula && errors.matricula}
+                      isValid={touched.rg && !errors.rg}
+                      isInvalid={touched.rg && errors.rg}
                     />
-                    <Form.Control.Feedback type='invalid'>{errors.matricula}</Form.Control.Feedback>
+                    <Form.Control.Feedback type='invalid'>{errors.rg}</Form.Control.Feedback>
                   </Form.Group>
 
+                  
                   <Form.Group as={Col}>
-                    <Form.Label>Situação:</Form.Label>
-                    <Form.Select
-                      name='situacao'
-                      value={values.situacao}
+                    <Form.Label>Endereco:</Form.Label>
+                    <Form.Control
+                      name='endereco'
+                      type='text'
+                      value={values.endereco}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      isValid={touched.situacao && !errors.situacao}
-                      isInvalid={touched.situacao && errors.situacao}
-                    >
-                      <option value=''>Selecione</option>
-                      <option value="Trabalhando">Trabalhando</option>
-                      <option value="Férias">Férias</option>
-                      <option value="Atestado">Atestado</option>
-                      <option value="Licença">Licença</option>
-                    </Form.Select>
-                    <Form.Control.Feedback type='invalid'>{errors.situacao}</Form.Control.Feedback>
+                      isValid={touched.endereco && !errors.endereco}
+                      isInvalid={touched.endereco && errors.endereco}
+                    />
+                    <Form.Control.Feedback type='invalid'>{errors.endereco}</Form.Control.Feedback>
                   </Form.Group>
+                </Row>
 
-                  <Form.Group as={Col} md={3}>
-                    <Form.Label>Cargo:</Form.Label>
+                <Row className='mb-2'>
+                  <Form.Group as={Col}>
+                    <Form.Label>Convenio:</Form.Label>
                     <Form.Select
-                      name='cargo'
-                      value={values.cargos}
+                      name='convenio'
+                      value={values.convenios}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      isValid={touched.cargo && !errors.cargo}
-                      isInvalid={touched.cargo && errors.cargo}
+                      isValid={touched.convenio && !errors.convenio}
+                      isInvalid={touched.convenio && errors.convenio}
                     >
                       <option value=''>Selecione</option>
-                      <option value="Auxiliar de Loja">Auxiliar de Loja</option>
-                      <option value="Auxiliar de Serviços Gerais">Auxiliar de Serviços Gerais</option>
-                      <option value="Atendente I">Atendente I</option>
-                      <option value="Atendente II">Atendente II</option>
-                      <option value="Supervisor">Supervisor</option>
-                      <option value="Farmaceutico">Farmaceutico</option>
-                      <option value="Consultor de Beleza">Consultor de Beleza</option>
-                      <option value="Gerente">Gerente</option>
+                      <option value="Acesso Saude">Acesso Saúde</option>
+                      <option value="Cartão de Todos">Cartão de Todos</option>
+                      <option value="Cassi">Cassi</option>
+                      <option value="GEAP">GEAP</option>
+                      <option value="Preferencial Drogasil">Preferencial Drogasil</option>
+                      <option value="Quallity">Quallity</option>
+                      <option value="Saúde Caixa">Saúde Caixa</option>
+                      <option value="Unimed">Unimed</option>
                     </Form.Select>
-                    <Form.Control.Feedback type='invalid'>{errors.cargo}</Form.Control.Feedback>
+                    <Form.Control.Feedback type='invalid'>{errors.convenio}</Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group as={Col} md={6}>

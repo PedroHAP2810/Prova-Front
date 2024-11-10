@@ -12,11 +12,12 @@ export default function Pagina({ titulo, children }) {
         <Container>
           <Navbar.Brand href="/">Pagina Inicial</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/clientes">Clientes</Nav.Link>
-            <Nav.Link href="/funcionarios">Funcionários</Nav.Link>
-            <Nav.Link href="/entregadores">Entregadores</Nav.Link>
-            <Nav.Link href="/produtos">Produtos</Nav.Link>
-            <Nav.Link href="/filiais">Filiais</Nav.Link>
+          <Nav.Link href="/filiais">Filiais</Nav.Link>
+          <Nav.Link href="/produtos">Produtos</Nav.Link>           
+          <Nav.Link href="/funcionarios">Funcionários</Nav.Link>
+          <Nav.Link href="/entregadores">Entregadores</Nav.Link>
+          <Nav.Link href="/clientes">Clientes</Nav.Link>
+            
           </Nav>
         </Container>
       </Navbar>
