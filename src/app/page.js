@@ -54,7 +54,7 @@ export default function HomePage() {
                 Cadastrados: {item.quantidade}
               </Card.Body>
               <Card.Footer className='text-end'>
-                <Button href={item.link}>Ver Lista</Button>
+                <Button href={item.link}>Ver Mais</Button>
               </Card.Footer>
             </Card>
           </Col>
