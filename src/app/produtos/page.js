@@ -10,6 +10,21 @@ export default function ProdutosPage() {
 
   const [produtos, setProdutos] = useState([])
 
+  const formatarValor = (valor) => {
+    const valorNumerico = valor.replace(/\D/g, ''); // Remove tudo que não for número
+
+    if (valorNumerico) {
+      // Formatar como moeda com separador de milhar e centavos
+      return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(valorNumerico / 100);  // Divide por 100 para simular centavos
+    }
+
+    return 'R$ 0,00'; // Retorna um valor padrão caso o valor seja vazio
+  };
+
+
   // Faz alguma coisa quando o usuário acessa a tela
   useEffect(() => {
     // Busca a lista do localStorage, se não existir, inicia uma vazia
@@ -18,6 +33,8 @@ export default function ProdutosPage() {
     setProdutos(produtosLocalStorage)
     console.log(produtosLocalStorage)
   }, [])
+
+  
 
   // Função para exclusão do item
   function excluir(produto) {
@@ -32,6 +49,8 @@ export default function ProdutosPage() {
       alert("Produto excluído com sucesso!")
     }
   }
+
+
 
 
   return (
@@ -60,7 +79,7 @@ export default function ProdutosPage() {
               <tr>
                 <td>{produto.nome}</td>
                 <td>{produto.fabricante}</td>
-                <td>{produto.valor}</td>
+                <td>{formatarValor(produto.valor)}</td>
                 <td>{produto.categoria}</td>
                 <td>{produto.dataValidade}</td>
                 <td>{produto.fornecedor}</td>

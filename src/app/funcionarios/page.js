@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
 import { FaPen, FaPlusCircle, FaTrash } from 'react-icons/fa'
 
+
 export default function FuncionariosPage() {
 
   const [funcionarios, setFuncionarios] = useState([])
@@ -29,13 +30,13 @@ export default function FuncionariosPage() {
       localStorage.setItem('funcionarios', JSON.stringify(novaLista))
       // grava a nova lista no estado para renderizar na tela
       setFuncionarios(novaLista)
-      alert("Funcionario excluído com sucesso!")
+      alert("Funcionário excluído com sucesso!")
     }
   }
 
 
   return (
-    <Pagina titulo={"Lista de Funcionarios"}>
+    <Pagina titulo={"Lista de Funcionários"}>
       <div className='text-end mb-2'>
         <Button href='/funcionarios/form'><FaPlusCircle /> Novo</Button>
       </div>

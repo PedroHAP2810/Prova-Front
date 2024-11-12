@@ -48,7 +48,7 @@ export default function FuncionarioFormPage(props) {
       localStorage.setItem('funcionarios', JSON.stringify(funcionarios))
     }
 
-    alert("Funcionario criado com sucesso!")
+    alert("Funcionário criado com sucesso!")
     router.push("/funcionarios")
   }
 
@@ -226,8 +226,8 @@ export default function FuncionarioFormPage(props) {
 
                   <Form.Group as={Col} md={6}>
                 <Form.Label>Telefone:</Form.Label>
-                <Form.Control
-                  mask={"(99)99999-9999"}
+                <Form.Control 
+                  mask={"(99) 99999-9999"}
                   placeholder='(99)99999-9999'
                   name='telefone'
                   type='text'

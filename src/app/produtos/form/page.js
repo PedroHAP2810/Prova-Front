@@ -77,6 +77,17 @@ export default function ProdutoFormPage(props) {
     gramatura: Yup.string().required("Campo obrigatório"),
   })
 
+  const formatarValor = (valor) => {
+    const valorNumerico = valor.replace(/\D/g, ''); // Remove tudo que não for número
+
+    if (valorNumerico) {
+      // Formatar como moeda com separador de milhar e centavos
+      return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      }).format(valorNumerico / 100);  // Divide por 100 para simular centavos
+    }
+  }
   return (
     <Pagina titulo={"Cadastro de Produtos"}>
 
@@ -93,14 +104,19 @@ export default function ProdutoFormPage(props) {
         {/* construção do template do formulário */}
         {
           // os valores e funções do formik
-          ({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
+          ({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
 
             // ações do formulário
             // debug
             // console.log("DEBUG >>>")
             // console.log({values, errors, touched})
 
-
+            const handleValorChange = (e) => {
+              const valorFormatado = e.target.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos
+              setFieldValue('valor', valorFormatado);  // Atualiza o valor sem formatação
+            };
+  
+  
             // retorno com o template jsx do formulário
             return (
               <Form onSubmit={handleSubmit}>
@@ -174,8 +190,8 @@ export default function ProdutoFormPage(props) {
                     <Form.Control
                       name='valor'
                       type='text'
-                      value={values.valorg}
-                      onChange={handleChange}
+                      value={formatarValor(values.valor)}  // Exibe o valor formatado
+                    onChange={handleValorChange} 
                       onBlur={handleBlur}
                       isValid={touched.valor && !errors.valor}
                       isInvalid={touched.valor && errors.valor}
