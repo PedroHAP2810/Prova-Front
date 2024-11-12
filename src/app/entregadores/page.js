@@ -10,24 +10,24 @@ export default function EntregadoresPage() {
 
   const [entregadores, setEntregadores] = useState([])
 
-  // Faz alguma coisa quando o usuário acessa a tela
+  
   useEffect(() => {
-    // Busca a lista do localStorage, se não existir, inicia uma vazia
+    
     const entregadoresLocalStorage = JSON.parse(localStorage.getItem("entregadores")) || []
-    // guarda a lista no estado
+    
     setEntregadores(entregadoresLocalStorage)
     console.log(entregadoresLocalStorage)
   }, [])
 
-  // Função para exclusão do item
+  
   function excluir(entregador) {
-    // Confirma com o usuário a exclusão
+   
     if (window.confirm(`Deseja realmente excluir o entregador ${entregador.nome}?`)) {
-      // filtra a lista antiga removando o professor recebido
+     
       const novaLista = entregadores.filter(item => item.id !== entregador.id)
-      // grava no localStorage a nova lista
+     
       localStorage.setItem('entregadores', JSON.stringify(novaLista))
-      // grava a nova lista no estado para renderizar na tela
+     
       setEntregadores(novaLista)
       alert("Entregador excluído com sucesso!")
     }
@@ -40,7 +40,7 @@ export default function EntregadoresPage() {
         <Button href='/entregadores/form'><FaPlusCircle /> Novo</Button>
       </div>
 
-      {/* Tabela com os Professores */}
+      {/* Tabela com os Entregadores */}
       <Table striped bordered hover>
         <thead>
           <tr>

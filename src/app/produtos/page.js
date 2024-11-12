@@ -11,40 +11,40 @@ export default function ProdutosPage() {
   const [produtos, setProdutos] = useState([])
 
   const formatarValor = (valor) => {
-    const valorNumerico = valor.replace(/\D/g, ''); // Remove tudo que não for número
+    const valorNumerico = valor.replace(/\D/g, ''); 
 
     if (valorNumerico) {
-      // Formatar como moeda com separador de milhar e centavos
+  
       return new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
       }).format(valorNumerico / 100);  // Divide por 100 para simular centavos
     }
 
-    return 'R$ 0,00'; // Retorna um valor padrão caso o valor seja vazio
+    return 'R$ 0,00'; 
   };
 
 
-  // Faz alguma coisa quando o usuário acessa a tela
+  
   useEffect(() => {
-    // Busca a lista do localStorage, se não existir, inicia uma vazia
+  
     const produtosLocalStorage = JSON.parse(localStorage.getItem("produtos")) || []
-    // guarda a lista no estado
+  
     setProdutos(produtosLocalStorage)
     console.log(produtosLocalStorage)
   }, [])
 
   
 
-  // Função para exclusão do item
+  
   function excluir(produto) {
-    // Confirma com o usuário a exclusão
+    
     if (window.confirm(`Deseja realmente excluir o produto ${produto.nome}?`)) {
-      // filtra a lista antiga removando o professor recebido
+      
       const novaLista = produtos.filter(item => item.id !== produto.id)
-      // grava no localStorage a nova lista
+      
       localStorage.setItem('produtos', JSON.stringify(novaLista))
-      // grava a nova lista no estado para renderizar na tela
+      
       setProdutos(novaLista)
       alert("Produto excluído com sucesso!")
     }
@@ -59,7 +59,7 @@ export default function ProdutosPage() {
         <Button href='/produtos/form'><FaPlusCircle /> Novo</Button>
       </div>
 
-      {/* Tabela com os Professores */}
+      {/* Tabela com os Produtos */}
       <Table striped bordered hover>
         <thead>
           <tr>

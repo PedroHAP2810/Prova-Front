@@ -10,41 +10,40 @@ import * as Yup from 'yup'
 
 export default function EntregadorFormPage(props) {
 
-  // router -> hook para navegação de telas
+  
   const router = useRouter()
 
   const handleBackClick = () => {
     router.push('/entregadores');
   };
 
-  // Busca a lista de cursos para usar no select
+  
   const veiculos = JSON.parse(localStorage.getItem('veiculos')) || []
 
-  // Buscar a lista de cursos no localStorage, se não existir, inicializa uma lista vazia
+  
   const entregadores = JSON.parse(localStorage.getItem('entregadores')) || []
 
-  // Recuperando id para edição
+  
   const id = props.searchParams.id
   console.log(props.searchParams.id)
-  // Buscar na lista a faculdade com o ID recebido no parametro
+  
   const entregadorEditado = entregadores.find(item => item.id == id)
   console.log(entregadorEditado)
 
 
-  // função para salvar os dados do form
+  
   function salvar(dados) {
-    // Se professorEditado existe, mudar os dados e gravar no localStorage
+    
     if (entregadorEditado) {
       Object.assign(entregadorEditado, dados)
-      // Substitui a lista antiga pela nova no localStorage
+      
       localStorage.setItem('entregadores', JSON.stringify(entregadores))
     } else {
-      // se clienteEditado não existe, é criação de uma nova
-      // gerar um ID (Identificador unico)
+      
       dados.id = v4()
-      // Adiciona a nova faculdade na lista de faculdades
+      
       entregadores.push(dados)
-      // Substitui a lista antiga pela nova no localStorage
+      
       localStorage.setItem('entregadores', JSON.stringify(entregadores))
     }
 
@@ -53,7 +52,7 @@ export default function EntregadorFormPage(props) {
   }
 
 
-  // Campos do form e valores iniciais(default)
+  
   const initialValues = {
     nome: '',
     cpf: '',
@@ -65,7 +64,7 @@ export default function EntregadorFormPage(props) {
     telefone: '',
   }
 
-  // Esquema de validação com Yup
+  
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatório"),
     cpf: Yup.string().required("Campo obrigatório"),
@@ -83,25 +82,17 @@ export default function EntregadorFormPage(props) {
       {/* Formulário */}
 
       <Formik
-        // Atributos do formik
-        // Se for edição, coloca os dados de professorEditado
-        // Se for nova, colocar o initialValues com os valores vazios
+        
         initialValues={entregadorEditado || initialValues}
         validationSchema={validationSchema}
         onSubmit={salvar}
       >
         {/* construção do template do formulário */}
         {
-          // os valores e funções do formik
+        
           ({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
 
-            // ações do formulário
-            // debug
-            // console.log("DEBUG >>>")
-            // console.log({values, errors, touched})
-
-
-            // retorno com o template jsx do formulário
+            
             return (
               <Form onSubmit={handleSubmit}>
                 {/* Campos do form */}

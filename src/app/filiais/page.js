@@ -10,24 +10,24 @@ export default function FilialPage() {
 
   const [filiais, setFiliais] = useState([])
 
-  // Faz alguma coisa quando o usuário acessa a tela
+  
   useEffect(() => {
-    // Busca a lista do localStorage, se não existir, inicia uma vazia
+    
     const filiaisLocalStorage = JSON.parse(localStorage.getItem("filiais")) || []
-    // guarda a lista no estado faculdades
+    
     setFiliais(filiaisLocalStorage)
     console.log(filiaisLocalStorage)
   }, [])
 
-  // Função para exclusão do item
+  
   function excluir(filial) {
-    // Confirma com o usuário a exclusão
+    
     if (window.confirm(`Deseja realmente excluir a filial ${filial.nome}?`)) {
-      // filtra a lista antiga removando a faculdade recebida
+      
       const novaLista = filiais.filter(item => item.id !== filial.id)
-      // grava no localStorage a nova lista
+      
       localStorage.setItem('filiais', JSON.stringify(novaLista))
-      // grava a nova lista no estado para renderizar na tela
+      
       setFiliais(novaLista)
       alert("Filial excluída com sucesso!")
     }
@@ -40,7 +40,7 @@ export default function FilialPage() {
         <Button href='/filiais/form'><FaPlusCircle /> Novo</Button>
       </div>
 
-      {/* Tabela com as faculdades */}
+      {/* Tabela com as Filiais */}
       <Table striped bordered hover>
         <thead>
           <tr>

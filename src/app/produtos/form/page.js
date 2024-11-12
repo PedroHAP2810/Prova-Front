@@ -11,41 +11,40 @@ import Select from 'react-select'
 
 export default function ProdutoFormPage(props) {
 
-  // router -> hook para navegação de telas
+  
   const router = useRouter()
 
   const handleBackClick = () => {
     router.push('/produtos');
   };
 
-  // Busca a lista de cursos para usar no select
+  
   const categoria = JSON.parse(localStorage.getItem('categoria')) || []
 
-  // Buscar a lista de cursos no localStorage, se não existir, inicializa uma lista vazia
+  
   const produtos = JSON.parse(localStorage.getItem('produtos')) || []
 
-  // Recuperando id para edição
+  
   const id = props.searchParams.id
   console.log(props.searchParams.id)
-  // Buscar na lista a faculdade com o ID recebido no parametro
+  
   const produtoEditado = produtos.find(item => item.id == id)
   console.log(produtoEditado)
 
 
-  // função para salvar os dados do form
+  
   function salvar(dados) {
-    // Se professorEditado existe, mudar os dados e gravar no localStorage
+    
     if (produtoEditado) {
       Object.assign(produtoEditado, dados)
-      // Substitui a lista antiga pela nova no localStorage
+      
       localStorage.setItem('produtos', JSON.stringify(produtos))
     } else {
-      // se clienteEditado não existe, é criação de uma nova
-      // gerar um ID (Identificador unico)
+      
       dados.id = v4()
-      // Adiciona a nova faculdade na lista de faculdades
+      
       produtos.push(dados)
-      // Substitui a lista antiga pela nova no localStorage
+      
       localStorage.setItem('produtos', JSON.stringify(produtos))
     }
 
@@ -54,7 +53,7 @@ export default function ProdutoFormPage(props) {
   }
 
 
-  // Campos do form e valores iniciais(default)
+  
   const initialValues = {
     nome: '',
     fabricante: '',
@@ -66,7 +65,7 @@ export default function ProdutoFormPage(props) {
     gramatura: '',
   }
 
-  // Esquema de validação com Yup
+  
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatório"),
     fabricante: Yup.string().required("Campo obrigatório"),
@@ -82,7 +81,7 @@ export default function ProdutoFormPage(props) {
     const valorNumerico = valor.replace(/\D/g, ''); // Remove tudo que não for número
 
     if (valorNumerico) {
-      // Formatar como moeda com separador de milhar e centavos
+      
       return new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
@@ -102,22 +101,17 @@ export default function ProdutoFormPage(props) {
       {/* Formulário */}
 
       <Formik
-        // Atributos do formik
-        // Se for edição, coloca os dados de professorEditado
-        // Se for nova, colocar o initialValues com os valores vazios
+        
         initialValues={produtoEditado || initialValues}
         validationSchema={validationSchema}
         onSubmit={salvar}
       >
         {/* construção do template do formulário */}
         {
-          // os valores e funções do formik
+        
           ({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
 
-            // ações do formulário
-            // debug
-            // console.log("DEBUG >>>")
-            // console.log({values, errors, touched})
+            
 
             const handleValorChange = (e) => {
               const valorFormatado = e.target.value.replace(/[^\d,]/g, ''); // Remove caracteres não numéricos
@@ -125,7 +119,7 @@ export default function ProdutoFormPage(props) {
             };
   
   
-            // retorno com o template jsx do formulário
+            
             return (
               <Form onSubmit={handleSubmit}>
                 {/* Campos do form */}
@@ -193,7 +187,7 @@ export default function ProdutoFormPage(props) {
                     <Form.Control
                       name='valor'
                       type='text'
-                      value={formatarValor(values.valor)}  // Exibe o valor formatado
+                      value={formatarValor(values.valor)}
                     onChange={handleValorChange} 
                       onBlur={handleBlur}
                       isValid={touched.valor && !errors.valor}

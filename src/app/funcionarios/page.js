@@ -11,24 +11,24 @@ export default function FuncionariosPage() {
 
   const [funcionarios, setFuncionarios] = useState([])
 
-  // Faz alguma coisa quando o usuário acessa a tela
+  
   useEffect(() => {
-    // Busca a lista do localStorage, se não existir, inicia uma vazia
+    
     const funcionariosLocalStorage = JSON.parse(localStorage.getItem("funcionarios")) || []
-    // guarda a lista no estado
+    
     setFuncionarios(funcionariosLocalStorage)
     console.log(funcionariosLocalStorage)
   }, [])
 
-  // Função para exclusão do item
+  
   function excluir(funcionario) {
-    // Confirma com o usuário a exclusão
+    
     if (window.confirm(`Deseja realmente excluir o funcionario ${funcionario.nome}?`)) {
-      // filtra a lista antiga removando o professor recebido
+     
       const novaLista = funcionarios.filter(item => item.id !== funcionario.id)
-      // grava no localStorage a nova lista
+     
       localStorage.setItem('funcionarios', JSON.stringify(novaLista))
-      // grava a nova lista no estado para renderizar na tela
+      
       setFuncionarios(novaLista)
       alert("Funcionário excluído com sucesso!")
     }
@@ -41,7 +41,7 @@ export default function FuncionariosPage() {
         <Button href='/funcionarios/form'><FaPlusCircle /> Novo</Button>
       </div>
 
-      {/* Tabela com os Professores */}
+      {/* Tabela com os Funcionários */}
       <Table striped bordered hover>
         <thead>
           <tr>

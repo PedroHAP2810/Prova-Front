@@ -7,44 +7,44 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import { FaArrowLeft, FaCheck } from "react-icons/fa"
 import { v4 } from 'uuid'
 import * as Yup from 'yup'
+import { ReactInputMask } from 'react-input-mask'
 
 export default function FuncionarioFormPage(props) {
 
-  // router -> hook para navegação de telas
+  
   const router = useRouter()
 
   const handleBackClick = () => {
     router.push('/funcionarios'); // Navega para '/funcionarios'
   };
 
-  // Busca a lista de cursos para usar no select
+  
   const cargos = JSON.parse(localStorage.getItem('cargos')) || []
 
-  // Buscar a lista de cursos no localStorage, se não existir, inicializa uma lista vazia
+  
   const funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || []
 
-  // Recuperando id para edição
+  
   const id = props.searchParams.id
   console.log(props.searchParams.id)
-  // Buscar na lista a faculdade com o ID recebido no parametro
+  
   const funcionarioEditado = funcionarios.find(item => item.id == id)
   console.log(funcionarioEditado)
 
 
-  // função para salvar os dados do form
+  
   function salvar(dados) {
-    // Se professorEditado existe, mudar os dados e gravar no localStorage
+    
     if (funcionarioEditado) {
       Object.assign(funcionarioEditado, dados)
-      // Substitui a lista antiga pela nova no localStorage
+      
       localStorage.setItem('funcionarios', JSON.stringify(funcionarios))
     } else {
-      // se professorEditado não existe, é criação de uma nova
-      // gerar um ID (Identificador unico)
+      
       dados.id = v4()
-      // Adiciona a nova faculdade na lista de faculdades
+      
       funcionarios.push(dados)
-      // Substitui a lista antiga pela nova no localStorage
+      
       localStorage.setItem('funcionarios', JSON.stringify(funcionarios))
     }
 
@@ -53,7 +53,7 @@ export default function FuncionarioFormPage(props) {
   }
 
 
-  // Campos do form e valores iniciais(default)
+  
   const initialValues = {
     nome: '',
     filial: '',
@@ -66,7 +66,7 @@ export default function FuncionarioFormPage(props) {
 
   }
 
-  // Esquema de validação com Yup
+  
   const validationSchema = Yup.object().shape({
     nome: Yup.string().required("Campo obrigatório"),
     filial: Yup.string().required("Campo obrigatório"),
@@ -84,25 +84,17 @@ export default function FuncionarioFormPage(props) {
       {/* Formulário */}
 
       <Formik
-        // Atributos do formik
-        // Se for edição, coloca os dados de professorEditado
-        // Se for nova, colocar o initialValues com os valores vazios
+        
         initialValues={funcionarioEditado || initialValues}
         validationSchema={validationSchema}
         onSubmit={salvar}
       >
         {/* construção do template do formulário */}
         {
-          // os valores e funções do formik
+        
           ({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => {
 
-            // ações do formulário
-            // debug
-            // console.log("DEBUG >>>")
-            // console.log({values, errors, touched})
-
-
-            // retorno com o template jsx do formulário
+            
             return (
               <Form onSubmit={handleSubmit}>
                 {/* Campos do form */}
@@ -226,7 +218,7 @@ export default function FuncionarioFormPage(props) {
 
                   <Form.Group as={Col} md={6}>
                 <Form.Label>Telefone:</Form.Label>
-                <Form.Control 
+                <Form.Control as={ReactInputMask}
                   mask={"(99) 99999-9999"}
                   placeholder='(99)99999-9999'
                   name='telefone'
