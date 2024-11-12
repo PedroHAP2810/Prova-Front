@@ -7,6 +7,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import { FaArrowLeft, FaCheck } from "react-icons/fa"
 import { v4 } from 'uuid'
 import * as Yup from 'yup'
+import Select from 'react-select'
 
 export default function ProdutoFormPage(props) {
 
@@ -88,6 +89,13 @@ export default function ProdutoFormPage(props) {
       }).format(valorNumerico / 100);  // Divide por 100 para simular centavos
     }
   }
+
+  const categoriaOptions = [
+    { value: 'Medicamentos', label: 'Medicamentos' },
+    { value: 'Fraldas', label: 'Fraldas' },
+    { value: 'Perfumaria', label: 'Perfumaria' },
+    { value: 'Alimentos', label: 'Alimentos' }
+  ]
   return (
     <Pagina titulo={"Cadastro de Produtos"}>
 
@@ -152,20 +160,15 @@ export default function ProdutoFormPage(props) {
 
                   <Form.Group as={Col}>
                     <Form.Label>Categoria:</Form.Label>
-                    <Form.Select
-                      name='categoria'
-                      value={values.categoria}
-                      onChange={handleChange}
+                    <Select
+                      name="categoria"
+                      options={categoriaOptions}
+                      value={categoriaOptions.find(option => option.value === values.categoria)}
+                      onChange={(selectedOption) => handleChange({ target: { name: 'categoria', value: selectedOption.value } })}
                       onBlur={handleBlur}
                       isValid={touched.categoria && !errors.categoria}
                       isInvalid={touched.categoria && errors.categoria}
-                    >
-                      <option value="">Selecione</option>
-                      <option value="Medicamentos">Medicamentos</option>
-                      <option value="Fraldas">Fraldas</option>
-                      <option value="Perfumaria">Perfumaria</option>
-                      <option value="Alimentos">Alimentos</option>
-                    </Form.Select>
+                    ></Select>
                     <Form.Control.Feedback type='invalid'>{errors.categoria}</Form.Control.Feedback>
                     </Form.Group>
 
